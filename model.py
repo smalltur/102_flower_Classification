@@ -22,7 +22,10 @@ def get_resnet50(num_classes, pretrained=True):
     
     # 替换最后一层全连接层
     in_features = model.fc.in_features
-    model.fc = nn.Linear(in_features, num_classes)
+    model.fc = nn.Sequential(
+    nn.Dropout(p=0.2, inplace=True),
+    nn.Linear(in_features, num_classes)
+    )
     
     return model
 
